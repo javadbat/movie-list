@@ -1,7 +1,31 @@
 @import "tailwindcss";
 
 @layer base{
-  #Layout,#root,html,body{
-    @apply bg-white w-dvw h-dvh m-0 p-0;
+  html{
+    margin:0;
+    padding: 0;
   }
+  #Layout,#root,html,body{
+    @apply bg-white w-dvw h-dvh;
+  }
+
+  div{
+    box-sizing: border-box;
+  }
+  #Layout{
+    @apply overflow-hidden grid;
+    grid-template-rows: 3.5rem minmax(0,1fr);
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "header"
+      "content";
+    .header{
+      grid-area: header;
+    }
+    .content-container{
+      @apply w-full h-full;
+      grid-area: content;
+    }
+  }
+
 }
