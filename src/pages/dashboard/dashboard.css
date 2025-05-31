@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.dashboard{
+  @apply h-dvh w-dvw;
+}

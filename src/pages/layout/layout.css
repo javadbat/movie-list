@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer base{
+  #Layout,#root,html,body{
+    @apply bg-white w-dvw h-dvh m-0 p-0;
+  }
+}
