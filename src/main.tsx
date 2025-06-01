@@ -1,4 +1,3 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {registerDefaultVariables} from 'jb-core/theme';
 import App from './App.tsx'
