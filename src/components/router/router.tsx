@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
         Component: Dashboard,
       },
       {
-        path: "detail",
+        path: "detail/:movieId",
         Component: Detail,
       },
     ],

@@ -35,5 +35,8 @@ class AddressConfig{
         }
         return 'NOT_VALID_ENV';
     }
+    get TMBDImageBaseUrl(){
+        return 'https://image.tmdb.org/t/p';
+    }
 }
 export default AddressConfig;

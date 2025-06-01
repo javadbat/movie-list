@@ -2,10 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import {axiosWithAuth} from "@utils/api/axios";
 import type { GenreListResponse, MovieListResponse } from "./types";
 
-export function getMovies({page=1}) {
+type getMoviesParams = {page:number, query?: string};
+export function getMovies({page, query}:getMoviesParams) {
+  const endpoint = (query !== undefined && query !=='') ? '/3/search/movie' : '/3/discover/movie';
   return useQuery({
-    queryKey: ['movies', page],
-    queryFn: () => axiosWithAuth.get<MovieListResponse>('/3/discover/movie',{params: {language: 'en', page}})
+    queryKey: ['movies', page, query],
+    queryFn: () => axiosWithAuth.get<MovieListResponse>(endpoint,{params: {language: 'en', page, query}})
       .then(response => response.data)
       .catch(error => {
         console.error('Error fetching movies:', error);

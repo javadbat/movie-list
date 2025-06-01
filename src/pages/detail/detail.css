@@ -1,0 +1,16 @@
+@import 'tailwindcss';
+.detail-page{
+  @apply w-full h-full p-16 gap-4;
+  display: grid;
+  grid-template-columns: 500px 1fr ;
+  grid-template-rows: repeat(7, max-content);
+  grid-template-areas: 
+    "poster title"
+    "poster description"
+    "poster rate"
+    "poster runtime"
+    "poster date"
+    "poster genres"
+    "poster company"
+    ;
+}

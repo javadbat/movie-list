@@ -3,6 +3,7 @@ import type { Movie } from "../types";
 import { Rating } from "@components/ui/rating";
 import { getGenres } from "../services";
 import { useMemo } from "react";
+import { Link } from "react-router";
 type Props = {
   movie: Movie
 }
@@ -16,6 +17,7 @@ export function MovieCard(props: Props) {
     });
   }, [genres.data?.genres, movie.genre_ids]);
   return (
+    <Link to={`/detail/${movie.id}`} className="no-underline text-inherit">
     <Card key={movie.id} className='py-0'>
       {
         movie.poster_path &&
@@ -34,5 +36,7 @@ export function MovieCard(props: Props) {
       </div>
 
     </Card>
+    </Link>
+    
   )
 }

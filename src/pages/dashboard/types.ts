@@ -1,5 +1,5 @@
 type LanguageCode = 'en' | 'hi' | 'de' | 'pt' | string; // Add more common codes as needed
-type GenreId = 
+export type GenreId = 
   | 28    // Action
   | 12    // Adventure
   | 16    // Animation

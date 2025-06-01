@@ -4,21 +4,31 @@ import {JBInfiniteScroll} from "jb-infinite-scroll/react";
 import { useEffect } from 'react';
 import { useMovieStore } from './store';
 import { SkeletonCard } from './movie-card/SkeletonCard';
+import { FilterBar } from './filter-bar/FilterBar';
+import {useDebounce, } from '@uidotdev/usehooks';
+
 function Dashboard() {
   const movies = useMovieStore((state) => state.movies);
   const addMovies = useMovieStore((state) => state.addMovies);
+  const clearMovie = useMovieStore((state) => state.clearMovies);
   const addPage = useMovieStore((state) => state.nextPage);
   const page = useMovieStore((state) => state.page);
-
-  const { data, isPending, error } = getMovies({page });
+  const searchTerm = useMovieStore((state) => state.filters.title);
+  const query = useDebounce(searchTerm, 300);
+  const { data, isPending, error } = getMovies({page, query });
   const isListEnded = (data?.total_pages||1) <= (data?.page|| 1);
+
   useEffect(()=>{
     data && addMovies(data.results);
   },[data])
-
+  useEffect(()=>{
+    clearMovie();
+  },[query])
+  
   return (
-    <div className="dashboard py-4 h-full">
-      <JBInfiniteScroll isLoading={isPending} isListEnded={isListEnded} onScrollEnd={()=>{addPage()}} className='w-full h-full'>
+    <div className="dashboard py-4 h-full relative">
+      <FilterBar/>
+      <JBInfiniteScroll isLoading={isPending} disableCaptureScroll={isPending} isListEmpty={!isPending && movies.length==0} isListEnded={isListEnded} onScrollEnd={()=>{addPage()}} className='w-full h-full'>
         <div slot='content' className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-8 gap-8 min-md:gap-16 min-md:p-16 '>
           {movies.map((movie) => (
             <MovieCard movie={movie} />
