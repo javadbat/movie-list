@@ -1,6 +1,10 @@
 # Movie List App
 
-This template provides a minimal setup to get React working in Vite with HMR and Typescript
+React Movie list app implemented with React, Vite, [tanstack/query](https://tanstack.com/query/latest), zustand and Typescript.
+
+- show movie list with title filter
+- show movie detail with score
+- dockerized so you can start it on your own machine
 
 ## getting started
 
