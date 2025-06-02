@@ -27,7 +27,9 @@ export const useMovieStore = create<MovieStates>()((set) => ({
   movies: [],
   nextPage: () => set(({page}) => ({ page:page+1 })),
   addMovies: (movies) => set((state) =>{
-    return({ movies: [...state.movies,...movies] });
+    const currentListIds = state.movies.map(m=>m.id)
+    const newMovies = movies.filter(m=>!currentListIds.includes(m.id))
+    return({ movies: [...state.movies,...newMovies] });
   }),
   clearMovies: () => set(() => ({ movies: [] })),
   setTitleFilter: (title?: string) => set((state) => ({

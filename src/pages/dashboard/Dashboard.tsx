@@ -6,23 +6,33 @@ import { useMovieStore } from './store';
 import { SkeletonCard } from './movie-card/SkeletonCard';
 import { FilterBar } from './filter-bar/FilterBar';
 import {useDebounce, } from '@uidotdev/usehooks';
+import { useSearchParams } from 'react-router';
 
 function Dashboard() {
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const movies = useMovieStore((state) => state.movies);
   const addMovies = useMovieStore((state) => state.addMovies);
   const clearMovie = useMovieStore((state) => state.clearMovies);
   const addPage = useMovieStore((state) => state.nextPage);
   const page = useMovieStore((state) => state.page);
   const searchTerm = useMovieStore((state) => state.filters.title);
-  const query = useDebounce(searchTerm, 300);
+  const query = useDebounce(searchTerm, 500);
   const { data, isPending, error } = getMovies({page, query });
   const isListEnded = (data?.total_pages||1) <= (data?.page|| 1);
 
   useEffect(()=>{
     data && addMovies(data.results);
-  },[data])
+  },[data]);
+
   useEffect(()=>{
-    clearMovie();
+    const q = searchParams.get("q");
+    if(q != query){
+      clearMovie();
+      query?searchParams.set("q",query):searchParams.delete("q");
+      setSearchParams(searchParams)
+    }
   },[query])
   
   return (
